@@ -1,0 +1,65 @@
+{
+  "userManagement": {
+    "home": {
+      "title": "المستخدمين",
+      "show": "رؤية بيانات مستخدم",
+      "createLabel": "إنشاء مستخدم جديد",
+      "createExploit": "إنشاء مستخدم جديد",
+      "createOrEditLabel": "إنشاء أو تعديل مستخدم",
+      "modifier": "تعديل مستخدم"
+    },
+    "created": "يتم إنشاء مستخدم جديد مع معرف {{ param }}",
+    "updated": "يتم تحديث المستخدم مع معرف{{ param }}",
+    "deleted": "تم حذف المستخدم مع معرف{{ param }}",
+    "delete": {
+      "question": "هل أنت متأكد أنك تريد حذف المستخدم {{ login }}?"
+    },
+    "detail": {
+      "title": "مستخدم"
+    },
+    "login": "تسجيل الدخول",
+    "ID": "معرف المستخدم",
+    "adresse": "العنوان",
+    "firstName": "الاسم",
+    "firstNameAr": "الاسم ",
+    "lastName": "اللقب",
+    "lastNameAr": "اللقب",
+    "email": "البريد الإلكتروني",
+    "activated": "مفعل",
+    "deactivated": "غير مفعل",
+    "profiles": "الصلوحيات",
+    "langKey": "لغة",
+    "createdBy": "تم إنشاؤها بواسطة",
+    "createdDate": "تاريخ الإنشاء",
+    "lastModifiedBy": "عدل من قبل",
+    "lastModifiedDate": "تاريخ التعديل",
+    "rech": "بحث بواسطة رقم ب.ت.و",
+    "cin": "رقم ب.ت.و",
+    "options": "خيارات",
+    "view": "عرض",
+    "modif": "تعديل",
+    "supp": "حذف",
+
+    "natureBenef": "طبيعة المستخدم",
+    "categorie": "الفئة",
+    "famille": "الفصيلة",
+    "typeBenef": "نوع المستخدم",
+    "matricule": "رقم التسجيل",
+    "identifFis": "معرّف",
+    "repres": "الممثل القانوني",
+    "siege": "مقر اجتماعي",
+    "registre": "السجل التجاري",
+    "raisonsiale": "الحالة الاجتماعية",
+    "raisonsialeAR": "الحالة الاجتماعية",
+    "nomCommercial": "الاسم التجاري",
+    "nomCommercialAr": "الاسم التجاري",
+    "datecin": "تاريخ رقم ب.ت.و",
+    "numMobile": "رقم الهاتف المحمول",
+    "numerTel": "رقم الهاتف",
+    "numFax": "رقم الفاكس",
+    "natureExploi": "طبيعة المصدر",
+    "forage": "بئر",
+    "puit": "بئر خاص",
+    "oued": "وادي"
+  }
+}

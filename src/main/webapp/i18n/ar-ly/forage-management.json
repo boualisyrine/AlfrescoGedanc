@@ -1,0 +1,60 @@
+{
+  "forageManagement": {
+    "home": {
+      "title": "ادارة الابيار",
+      "liste": "قائمة الابار",
+      "nouveau": "اضافة بئر جديد",
+      "createLabel": "إنشاء بئر جديدة",
+      "showLabel": "تفاصيل ",
+      "updateLabel": "تعديل بئر",
+      "createOrEditLabel": "إنشاء أو تعديل بئر",
+      "error": "يرجى ملء جميع المعلومات",
+      "errorvalid": "خانة إجبارية",
+      "view": "عرض",
+      "modifier": "تعديل",
+      "supprimer": "حذف",
+      "msgCreation": "إضافة بئر جديد بنجاح",
+      "msgValidation": "التحقق"
+    },
+    "created": "Le forage {{ param }} a été créé.",
+    "updated": "Le forage  {{ param }} a été mis à jour.",
+    "deleted": "Le forage  {{ param }} a été supprimé.",
+    "delete": {
+      "question": "Etes-vous certain de vouloir supprimer Le forage  {{ login }} ?"
+    },
+    "detail": {
+      "title": "ادارة الابار"
+    },
+    "libelle": "الرمز",
+    "numIrh": "عدد الجرد",
+    "profondeur": "العمق",
+    "description": "الوصف",
+    "anneeCreation": " تاريخ الانشاء",
+    "dateDebut": "تاريخ البداية",
+    "dateFin": "تاريخ الانتهاء",
+    "debit": "التدفق",
+    "residuSec": "الملوحة",
+    "date": "التاريخ",
+    "sousBassin": "الحوض",
+    "options": "الخيارات",
+    "nom": "اسم البئر",
+    "numero autorisation": "رقم التفويض",
+    "localite": "المنطقة",
+    "delegation": "المعتمدية",
+    "gouvernorat": "الولاية",
+    "nappe": "رمز منسوب المياه",
+    "systemes aquiferes": "شبكات طبقات المياه",
+    "zone hydrologique": "المنطقة الهيدرولوجية",
+    "libelleFr": "اسم البئر",
+    "libelleAr": "اسم البئر",
+    "validation": "الرجاء ادخال",
+    "resultselect": "نتيجة الاختيار",
+    "resetselect": "إعادة الاختيار",
+    "selectionner": "الاختيار :",
+    "options": "خيارات",
+    "type": "نوع منسوب المياه",
+    "coordonneex": "إحداثيات X",
+    "coordonneey": "إحداثيات Y",
+    "coordonneez": "إحداثيات Z"
+  }
+}

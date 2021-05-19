@@ -1,0 +1,50 @@
+<div class="card">
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="card-header"><h4> Résultat  </h4></div>
+    <div class="card-body">
+
+
+        <!--    <div class="card-body">-->
+<!--        <div style="margin-bottom: 10px">-->
+<!--        </div>-->
+<!--        <table class="table-striped">-->
+<!--                <tr>-->
+<!--                    <th>name  </th>-->
+<!--                    <th data-breakpoints="xs">Action</th>-->
+<!--                </tr>-->
+<!--                <tr *ngFor="let f of fin">-->
+<!--                    <td>{{f.nameFile}}</td>-->
+<!--                    <td>télecharger</td>-->
+<!--                </tr>-->
+<!--        </table>-->
+<!--        <button type="reset" value="Reset"   class="btn btn-outline-danger" (click)="btnSave()" > Quitter </button>-->
+
+<!--    </div>-->
+<!--    <p-table class="table table-hover" [paginator]="true" [rows]="2" [value]="fin" selectionMode="single">-->
+<!--        <ng-template pTemplate="header">-->
+<!--            <tr>-->
+<!--                <th>nom  </th>-->
+<!--                <th>date de création </th>-->
+<!--                <th data-breakpoints="xs">Action</th>-->
+<!--            </tr>-->
+<!--        </ng-template>-->
+<!--        <ng-template pTemplate="body" let-rowData>-->
+<!--            <tr>-->
+<!--                <td [(ngModel)]="selectedfile" [ngModelOptions]="{standalone: true} ">{{rowData.nameFile}}</td>-->
+<!--                <td>{{rowData.dateModif}}</td>-->
+<!--                <td ><button (click)="download(rowData)"> télecharger </button> </td>-->
+<!--            </tr>-->
+<!--        </ng-template>-->
+<!--    </p-table>-->
+        <select class="browser-default custom-select custom-select-lg mb-3"   [(ngModel)]="selectedMot" [ngModelOptions]="{standalone: true} " multiple>
+            <option *ngFor="let del of fin" [ngValue]="del" (click)="download(selectedMot)">{{del.nameFile}}</option>
+        </select>
+    </div>
+</div>
+
+<!--<ul *ngFor="let f of fin">-->
+<!--    <li > {{ f.nameFile}}</li> <br>-->
+
+<!--</ul>-->

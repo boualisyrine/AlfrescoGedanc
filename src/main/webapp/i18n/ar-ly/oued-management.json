@@ -1,0 +1,56 @@
+{
+  "ouedManagement": {
+    "home": {
+      "title": "ادارة الأودية",
+      "liste": "قائمة الأودية",
+      "nouveau": "اضافة وادي جديد",
+      "createLabel": "إنشاء وادي جديد",
+      "showLabel": "تفاصيل ",
+      "updateLabel": "تعديل وادي",
+      "createOrEditLabel": "إنشاء أو تعديل وادي",
+      "error": "يرجى ملء جميع المعلومات",
+      "errorvalid": "خانة إجبارية",
+      "msgCreation": "إضافة وادي جديد بنجاح",
+      "msgValidation": "التحقق"
+    },
+
+    "detail": {
+      "title": "ادارة الأودية"
+    },
+    "libelle": "الرمز",
+    "numIrh": "عدد الجرد",
+    "profondeur": "العمق",
+    "description": "الوصف",
+    "anneeCreation": " تاريخ الانشاء",
+    "dateDebut": "تاريخ البداية",
+    "dateFin": "تاريخ الانتهاء",
+    "debit": "التدفق",
+    "residuSec": "الملوحة",
+    "date": "التاريخ",
+    "bassin": "مستجمع المياه",
+    "sousBassin": "تحت مستجمع المياه",
+    "options": "الخيارات",
+    "nom": "اسم الوادي",
+    "numero autorisation": "رقم التفويض",
+    "localite": "المنطقة",
+    "delegation": "المعتمدية",
+    "gouvernorat": "الولاية",
+    "nappe": "منسوب المياه",
+    "systemes aquiferes": "شبكات طبقات المياه",
+    "zone hydrologique": "المنطقة الهيدرولوجية",
+    "nomOued": "اسم الوادي",
+    "nomOuedAr": "اسم الوادي",
+    "nomSabkha": "اسم السبخة",
+    "nomSabkhaAr": "اسم السبخة",
+    "code": "الرمز",
+    "codeOued": "رمزالوادي",
+    "codeSabkha": "رمزالسبخة",
+    "validation": "الرجاء ادخال",
+    "resultselect": "نتيجة الاختيار",
+    "resetselect": "إعادة الاختيار",
+    "selectionner": "الاختيار :",
+    "options": "خيارات",
+    "rechercher": "بحث",
+    "nature": "الصفة"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "paiementBIRHManagement": {
+    "home": {
+      "title": "تأكيد آلدفع:BIRH",
+      "nouveau": "الرجاء إكمال المعلومات الناقصة",
+      "error": "يرجى ملء جميع المعلومات",
+      "errorMontant": "المبلغ غير صحيح",
+      "errorvalid": "خانة إجبارية",
+      "historiquePai": "متابعة الدفوعات"
+    },
+
+    "detail": {
+      "title": "تأكيد آلدفع:BIRH"
+    },
+    "numfact": "رقم الفاتورة",
+    "numConc": "رقم الرخصة",
+    "nom": "الإسم ",
+    "prenom": "اللقب",
+    "raison": "الوضع الإجتماعي",
+    "montantfact": "المبلغ الجملي",
+    "montantpaye": "المبلغ المدفوع",
+    "reliquat": "المبلغ المتبقي",
+    "numpaiement": "رقم الدفع",
+    "date": "تاريخ الدفع",
+    "mode": "طريقة الدفع",
+    "observations": "ملاحظات",
+    "modepaidescr": "الطريقة الأمثل ،الآمنة و السريعة",
+    "detailfact": "تفاصيل الفاتورة",
+    "paiement": "مرحلة الدفع",
+    "confirmation": "التأكيد",
+    "precedent": "خروج"
+  }
+}

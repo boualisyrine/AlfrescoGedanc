@@ -1,0 +1,30 @@
+{
+  "zoneManagement": {
+    "home": {
+      "title": "ادارة المناطق الهيدرولوجية",
+      "liste": "قائمة المناطق الهيدرولوجية",
+      "nouveau": "اضافة منطقةهيدرولوجية",
+      "createLabel": "إنشاء منطقة الهيدرولوجية",
+      "showLabel": "تفاصيل ",
+      "updateLabel": "تعديل منطقة الهيدرولوجية",
+      "createOrEditLabel": "إنشاء أو تعديل منطقة الهيدرولوجية",
+      "error": "يرجى ملء جميع المعلومات",
+      "errorvalid": "خانة إجبارية"
+    },
+
+    "delete": {
+      "question": "Etes-vous certain de vouloir supprimer Le forage  {{ login }} ?"
+    },
+    "detail": {
+      "title": "ادارة المناطق الهيدرولوجية"
+    },
+    "libelleFr": "اسم المنطقةالهيدرولوجية(fr)",
+    "libelleAr": "اسم المنطقةالهيدرولوجية",
+    "description": "الوصف",
+    "resultselect": "نتيجة الاختيار",
+    "resetselect": "إعادة الاختيار",
+    "selectionner": "الاختيار :",
+    "options": "خيارات",
+    "rechercher": "بحث"
+  }
+}

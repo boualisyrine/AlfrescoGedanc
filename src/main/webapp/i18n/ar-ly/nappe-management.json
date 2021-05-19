@@ -1,0 +1,34 @@
+{
+  "nappeManagement": {
+    "home": {
+      "title": "ادارة منسوب المياه",
+      "liste": "قائمة منسوب المياه",
+      "nouveau": "اضافة منسوب المياه",
+      "createLabel": "إنشاء منسوب المياه",
+      "showLabel": "تفاصيل ",
+      "updateLabel": "تعديل منسوب المياه",
+      "createOrEditLabel": "إنشاء أو تعديل منسوب المياه",
+      "error": "يرجى ملء جميع المعلومات",
+      "errorvalid": "خانة إجبارية"
+    },
+
+    "detail": {
+      "title": "ادارة منسوب المياه"
+    },
+    "libelleFr": "اسم منسوب المياه(fr)",
+    "libelleAr": "اسم منسوب المياه",
+    "description": "الوصف",
+    "code": "الرمز",
+    "resultselect": "نتيجة الاختيار",
+    "resetselect": "إعادة الاختيار",
+    "selectionner": "الاختيار :",
+    "zone": "المنطقة الهيدرولوجية",
+    "systeme": "شبكات طبقات المياه",
+    "options": "خيارات",
+    "rechercher": "بحث",
+    "type": "نوع منسوب المياه",
+    "coordonneex": "إحداثيات X",
+    "coordonneey": "إحداثيات Y",
+    "coordonneez": "إحداثيات Z"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "systemeManagement": {
+    "home": {
+      "title": "ادارة شبكات طبقات المياه",
+      "liste": "قائمة شبكات طبقات المياه",
+      "nouveau": "اضافة شبكة المياه",
+      "createLabel": "إنشاء شبكة المياه",
+      "showLabel": "تفاصيل ",
+      "updateLabel": "تعديل شبكة المياه",
+      "createOrEditLabel": "إنشاء أو تعديل شبكة المياه",
+      "error": "يرجى ملء جميع المعلومات",
+      "errorvalid": "خانة إجبارية"
+    },
+
+    "detail": {
+      "title": "ادارة شبكات طبقات المياه"
+    },
+    "libelleFr": "اسم شبكة المياه(fr)",
+    "libelleAr": "اسم شبكة المياه",
+    "description": "الوصف",
+    "code": "الرمز",
+    "resultselect": "نتيجة الاختيار",
+    "resetselect": "إعادة الاختيار",
+    "selectionner": "الاختيار :",
+    "zone": "المنطقة الهيدرولوجية",
+    "options": "خيارات",
+    "rechercher": "بحث"
+  }
+}

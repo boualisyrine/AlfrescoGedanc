@@ -1,0 +1,19 @@
+{
+  "archive": {
+    "recherche": "Advanced search:",
+    "mots": "Keywords:",
+    "nom": "name:",
+    "titre": "Title:",
+    "description": "Description:",
+    "type": "Type:",
+    "date": "Modification date:",
+    "de": "Of:",
+    "à": "At:",
+    "buttonre": "Search",
+    "buttonqu": "Leave",
+    "image": "Picture",
+    "vidéo": "Video",
+    "texte": "Text",
+    "buttonrebat": "Search"
+  }
+}

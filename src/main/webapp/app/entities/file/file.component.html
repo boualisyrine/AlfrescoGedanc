@@ -1,0 +1,16 @@
+<div class="col-md-8">
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <button type="reset" value="Reset"   class="btn btn-outline-danger" (click)="BTNCancel()" > Quitter </button>
+        </div>
+    </div>
+
+<div class="checkbox">
+<h4><label><input type="checkbox" [(ngModel)]="selectedfile" [ngModelOptions]="{standalone: true} "(click)="recherche(test)">{{test}} </label> </h4>
+</div>
+    <!--<select  [(ngModel)]="selectedfile" [ngModelOptions]="{standalone: true} " multiple>-->
+<!--    <option (click)="downloadn2(selectedfile)" >{{test}}</option>-->
+<!--</select>-->
+
+<!--<h4><label><input type="checkbox" [(ngModel)]="selectedfile" [ngModelOptions]="{standalone: true} "(click)="recherche(test);recherchen2(test);">{{test}} </label> </h4>-->
+</div>

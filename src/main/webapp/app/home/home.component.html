@@ -1,0 +1,151 @@
+<div class="row">
+    <!--    <div class="col-md-3">-->
+    <!--        <span class="hipster img-fluid rounded"></span>-->
+    <!--    </div>-->
+    <div class="col-md-12">
+<!--   <img src="../../content/images/logo1.jpg" alt="logo" class="imgAcc">-->
+<!--        <h5 class="display-4" > {{'global.titre' | translate}} </h5>-->
+
+
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="../../content/images/ged.png" alt="First slide">
+                </div>
+            </div>
+        </div>
+
+    <br/>
+</div>
+<!--    <table class="col-md-9">-->
+<!--        <tbody>-->
+    <div class="col-md-9">
+           <button type="button" class="btn btn-danger" (click)="isCollap = !isCollap"
+                        [attr.aria-expanded]="!isCollap" aria-controls="collapseExample" >{{folderprinc}}</button>
+             <div id="collapseExample" [ngbCollapse]="isCollap">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <fieldset class="scheduler-border">
+                                    <form class="form-inline">
+                                        <div class="col-md-1 ">
+                                            <div class="form-group row ">
+                                                <div class=" form-group col-md-1">
+                                                    <div class=" form-group col-md-1">
+                                                        <!--                                                        <ul *ngFor="let li of list">-->
+                                                        <!--                                                            <li>{{li}} </li>-->
+                                                        <!--                                                        </ul>-->
+                                                        <!--                                                     <ul *ngFor="let del of listFold ">-->
+                                                        <!--                                                        <button type="button" class="btn btn-light" > <li (click)="searchFile(del)">{{del}}</li></button>-->
+                                                        <!--                                                     </ul>-->
+                                                        <form>
+                                                            <H4>{{folderprinc}}</H4>
+
+                                                            <label> les dossiers</label>
+                                                            <select class="browser-default custom-select custom-select-lg mb-3"   [(ngModel)]="selectedMot" [ngModelOptions]="{standalone: true} " multiple>
+                                                                <option *ngFor="let del of listFold" [ngValue]="del" (click)="foldern2(selectedMot); isCollaps = !isCollaps"
+                                                                        [attr.aria-expanded]="!isCollaps" aria-controls="collapseExample2" >{{del}}</option>
+                                                            </select>
+                                                        </form>
+                                                        <div id="collapseExample2" [ngbCollapse]="isCollaps">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-1">
+                                                                            <fieldset class="scheduler-border">
+                                                                                <form class="form-inline">
+                                                                                    <div class="col-md-1 ">
+                                                                                        <div class="form-group row ">
+                                                                                            <div class=" form-group col-md-1">
+                                                                                                <div class=" form-group col-md-1">
+                                                                                                    <form>
+                                                                                                        <H4>{{selectedMot}}</H4>
+                                                                                                        <label> les dossiers</label>
+                                                                                                        <select class="browser-default custom-select custom-select-lg mb-3" [(ngModel)]="selectedMot2"[ngModelOptions]="{standalone: true} " multiple>
+                                                                                                            <option *ngFor="let fil of list2" [ngValue]="fil"  (click)="foldern3(selectedMot,selectedMot2); isColl = !isColl"
+                                                                                                                    [attr.aria-expanded]="!isColl" aria-controls="collapseExample3">{{fil}}</option>
+                                                                                                        </select>
+                                                                                                        <div id="collapseExample3" [ngbCollapse]="isColl">
+                                                                                                            <div class="card">
+                                                                                                                <div class="card-body">
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="col-md-1">
+                                                                                                                            <fieldset class="scheduler-border">
+                                                                                                                                <form class="form-inline">
+                                                                                                                                    <div class="col-md-1 ">
+                                                                                                                                        <div class="form-group row ">
+                                                                                                                                            <div class=" form-group col-md-1">
+                                                                                                                                                <div class=" form-group col-md-1">
+                                                                                                                                                    <form>
+                                                                                                                                                        <H4>{{selectedMot2}}</H4>
+                                                                                                                                                        <label> les dossiers</label>
+                                                                                                                                                        <select class="browser-default custom-select custom-select-lg mb-3" [(ngModel)]="selectedMot3"[ngModelOptions]="{standalone: true} " multiple>
+                                                                                                                                                            <option *ngFor="let fil of listn2" [ngValue]="fil"> {{fil}} </option>
+                                                                                                                                                        </select>
+
+                                                                                                                                                        <label> les fichiers</label>
+                                                                                                                                                        <select class="browser-default custom-select custom-select-lg mb-3" [(ngModel)]="selectedfile3" [ngModelOptions]="{standalone: true} " multiple>
+                                                                                                                                                            <option *ngFor="let fil of listn3" [ngValue]="fil" (click)="downloadn3(selectedfile3)">{{fil.nameFile}}</option>
+                                                                                                                                                        </select>
+                                                                                                                                                    </form>
+                                                                                                                                                </div>
+                                                                                                                                            </div>
+                                                                                                                                        </div>
+                                                                                                                                    </div>
+                                                                                                                                </form>
+                                                                                                                            </fieldset>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+
+                                                                                                        <label> les fichiers</label>
+                                                                                                        <select  class="browser-default custom-select custom-select-lg mb-3"  [(ngModel)]="selectedfile2" [ngModelOptions]="{standalone: true} " multiple>
+                                                                                                            <option *ngFor="let fil of list3" [ngValue]="fil" (click)="downloadn2(selectedfile2)" >{{fil.nameFile}}</option>
+                                                                                                        </select>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--                                                        <ul *ngFor="let fil of listFil ">-->
+                                                        <!--                                                            <a> <li >{{fil}}</li></a>-->
+                                                        <!--                                                            &lt;!&ndash;                                                       <button (click)="listFolder(3,del)">  test methode</button>&ndash;&gt;-->
+                                                        <!--                                                        </ul>-->
+                                                        <form>
+                                                            <label> les fichiers</label>
+                                                            <select class="browser-default custom-select custom-select-lg mb-3" [(ngModel)]="selectedfile" [ngModelOptions]="{standalone: true} " multiple>
+                                                                <option *ngFor="let fil of listFil" [ngValue]="fil" (click)="downloadn1(selectedfile)">{{fil.nameFile}}</option>
+                                                            </select>
+                                                        </form>
+                                                        <!--                                                        <ul *ngFor="let fil of listFil ">-->
+                                                        <!--                                                            <a> <li >{{fil}}</li></a>-->
+                                                        <!--                                                            &lt;!&ndash;                                                       <button (click)="listFolder(3,del)">  test methode</button>&ndash;&gt;-->
+                                                        <!--                                                        </ul>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+
+<!--        </tbody>-->
+<!--    </table>-->
+</div>

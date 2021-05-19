@@ -1,0 +1,33 @@
+{
+  "produit": {
+    "titre": "المنتجات",
+    "tva": "TVA(%)",
+    "designAr": "اسم المنتج(Ar) ",
+    "designFr": "اسم المنتج(Fr)",
+    "reference": "الرمز",
+    "prixUnitaire": "السعر(دينار)",
+    "typeProduit": "نوع المنتج",
+    "familleProduit": "فصيلة المنتج",
+    "new": "منتج جديد",
+    "qteDepart": "كمية البداية",
+    "qteDisponibe": "الكمية المتاحة",
+    "modifier": "تعديل منتج",
+
+    "type": {
+      "code": "رمز نوع المنتجات",
+      "designationAr": "الاسم(Ar)",
+      "designationFr": "الاسم(Fr)",
+      "nouveautype": "نوع منتج جديد",
+      "liste": "قائمة نوع المنتجات"
+    },
+    "famille": {
+      "code": "رمز فصيلة المنتجات",
+      "designationAr": "الاسم(Ar)",
+      "designationFr": "الاسم(Fr)",
+      "nouvellefamille": "فصيلة منتج جديد",
+      "liste": "قائمة فصيلة المنتجات"
+    },
+
+    "liste": "قائمة المنتجات "
+  }
+}

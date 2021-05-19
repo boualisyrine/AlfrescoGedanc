@@ -1,0 +1,63 @@
+<div class="card">
+<div class="row">
+
+    <div class="col-md-8">
+        <div class="btn-toolbar">
+            <div class="btn-group">
+        <button class="btn btn-info" type="button"  (click)="openDetail()">{{'archive.buttonre' | translate}} </button>
+        <button type="reset" value="Reset"   class="btn btn-outline-danger" (click)="BTNCancel()" > {{'archive.buttonqu' | translate}} </button>
+        </div>
+        </div>
+        <div></div>
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border"> {{'archive.recherche' | translate}} </legend>
+        <label  for="1" class="control-label col-md-4" > {{'archive.mots' | translate}} </label>
+        <input type="text" class="form-control col-md-8"  id="1" [(ngModel)]="selectedMot0"
+               [ngModelOptions]="{standalone: true}" >
+
+        <label for="2" class="control-label col-md-4"> {{'archive.nom' | translate}} </label>
+        <input type="text" class="form-control col-md-8"  id="2" [(ngModel)]="selectedMot"
+               [ngModelOptions]="{standalone: true}" >
+
+        <label for="3" class="control-label col-md-4"> {{'archive.titre' | translate}} </label>
+        <textarea class="form-control col-md-8"  rows="1" id="3" [(ngModel)]="selectedMot1"
+                  [ngModelOptions]="{standalone: true}"> </textarea>
+
+        <label for="4" class="control-label col-md-4"> {{'archive.description' | translate}} </label>
+        <textarea class="form-control col-md-8"  rows="1" id="4" [(ngModel)]="selectedMot2"
+                  [ngModelOptions]="{standalone: true}"> </textarea>
+
+        <label for="5" class="control-label col-md-4"> {{'archive.type' | translate}}</label>
+        <select class="form-control col-md-5" id="5"
+                [(ngModel)]="selectedMot3"
+                [ngModelOptions]="{standalone: true}" >
+            <option> {{'archive.image' | translate}} </option>
+            <option> {{'archive.vidéo' | translate}} </option>
+            <option> {{'archive.texte' | translate}} </option>
+        </select>
+
+        <label  class="control-label col-md-4"> {{'archive.date' | translate}} </label>
+        <br/>
+
+        <label for="6" class="control-label col-md-4"> {{'archive.de' | translate}}  </label>
+        <input  type="Date" class="form-control col-md-4" id="6" [(ngModel)]="selectedMot4"
+                [ngModelOptions]="{standalone: true}">
+
+            <label for="7" class="control-label col-md-4"> {{'archive.à' | translate}} </label>
+        <input type="Date" class="form-control col-md-4" id="7" [(ngModel)]="selectedMot5"
+               [ngModelOptions]="{standalone: true}">
+
+        </fieldset>
+        <br/>
+
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <button class="btn btn-info" type="button"  (click)="openDetail()"> {{'archive.buttonrebat' | translate}} </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--    <jhi-resultat [fin]="'TestingInput'"></jhi-resultat>-->
+</div>
+<router-outlet></router-outlet>

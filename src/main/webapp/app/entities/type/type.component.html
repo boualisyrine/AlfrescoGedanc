@@ -1,0 +1,14 @@
+<div class="col-md-8">
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <button type="reset" value="Reset"   class="btn btn-outline-danger" (click)="BTNCancel()" > Quitter </button>
+        </div>
+    </div>
+<form>
+    <label> les fichiers</label>
+    <select  [(ngModel)]="selectedfile" [ngModelOptions]="{standalone: true} " multiple>
+        <option *ngFor="let fil of list3" [ngValue]="fil" (click)="downloadn1(selectedfile)">{{fil.nameFile}}</option>
+        <option *ngFor="let fil of list4" [ngValue]="fil" (click)="downloadn2(selectedfile)">{{fil.nameFile}}</option>
+    </select>
+</form>
+</div>

@@ -1,0 +1,43 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+.imgAcc {
+  margin-left: 0%;
+  width: 170px;
+  height: 70px;
+}
+h5 {
+  margin-left: 30%;
+  font-size: 250%;
+  font-weight: bold;
+}
+.col-md-1 {
+  margin-left: 10%;
+  margin-right: 85%;
+}
+.card-body {
+  margin-left: 10%;
+  margin-right: 85%;
+}
+.card {
+  margin-left: 13%;
+  margin-right: 85%;
+}
+.hipster {
+  display: inline-block;
+  width: 347px;
+  height: 497px;
+  background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
+  background-size: contain;
+}
+
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+  .hipster {
+    background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
+    background-size: contain;
+  }
+}

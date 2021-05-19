@@ -1,0 +1,44 @@
+<div class="col-md-9">
+    <div class="col-md-8">
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <button type="reset" value="Reset"   class="btn btn-outline-danger" (click)="BTNCancel()" > Quitter </button>
+            </div>
+        </div>
+<div class="checkbox">
+    <h4>
+    <label><input type="checkbox" value=""(click)="isCollap = !isCollap;"
+                  [attr.aria-expanded]="!isCollap" aria-controls="collapseExample">{{test}} </label> </h4>
+    <div id="collapseExample" [ngbCollapse]="isCollap">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-1">
+                        <fieldset class="scheduler-border">
+                            <form class="form-inline">
+                                <div class="col-md-1 ">
+                                    <div class="form-group row ">
+                                        <div class=" form-group col-md-1">
+                                            <div class=" form-group col-md-1">
+                                                <form>
+                                                <select  [(ngModel)]="selectedfile2" [ngModelOptions]="{standalone: true} " multiple>
+                                                    <option *ngFor="let fil of list3" [ngValue]="fil" (click)="downloadn2(selectedfile2)" >{{fil.nameFile}}</option>
+                                                </select>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<router-outlet></router-outlet>
+</div>

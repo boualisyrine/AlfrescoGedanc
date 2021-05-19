@@ -1,0 +1,40 @@
+.card {
+  border: none;
+  margin-left: 7%;
+  margin-right: 7%;
+}
+fieldset.scheduler-border {
+  border-radius: 10px;
+  border: 2px groove #79bbff !important;
+  padding: 0 1.4em 1.4em 1.4em !important;
+  /*margin: 0 0 1.5em 0 !important;*/
+  -webkit-box-shadow: 0 0 0 0 #000;
+  box-shadow: 0 0 0 0 #000;
+}
+
+legend.scheduler-border {
+  font-size: 1.2em !important;
+  font-weight: bold !important;
+  text-align: left !important;
+  width: inherit; /* Or auto */
+  padding: 0 10px; /* To give a bit of padding on the left and right */
+  border-bottom: none;
+  color: orange;
+}
+button {
+  margin-right: 3%;
+  margin-left: 80%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.btn-toolbar {
+  margin-right: 3%;
+  margin-left: 55%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+li {
+  list-style-position: outside;
+  display: block;
+}

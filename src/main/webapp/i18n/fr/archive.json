@@ -1,0 +1,31 @@
+{
+  "archive": {
+    "recherche": "Recherche Avancée:",
+    "mots": "Mots clés:",
+    "nom": "Nom: ",
+    "titre": "Titre:",
+    "description": "Description:",
+    "type": "Type:",
+    "date": "Date de Modification:",
+    "de": "De:",
+    "à": "À:",
+    "buttonre": "Rechercher",
+    "buttonqu": "Quitter",
+    "image": "Image",
+    "vidéo": "Vidéo",
+    "texte": "Texte",
+    "buttonrebat": "Rechercher",
+
+    "add": "أضف وثيقة جديدة",
+    "pj": "اختر المرفق",
+    "liste": {
+      "titre": "قائمة الوثائق",
+      "rech": "بحث",
+      "fileName": "اسم الوثيقة",
+      "date": "تاريخ الإنشاء",
+      "editor": "تم إنشاؤها بواسطة",
+      "actions": "خيارات",
+      "upload": "تحميل"
+    }
+  }
+}

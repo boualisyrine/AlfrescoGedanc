@@ -1,0 +1,23 @@
+{
+  "login": {
+    "title": "تسجيل الدخول",
+    "birh": "فضاء BIRH",
+    "exploitant": "فضاء المستفيد",
+    "form": {
+      "password": "كلمه السر",
+      "password.placeholder": "كلمة السر خاصتك",
+      "rememberme": "تذكرنى",
+      "button": "تسجيل الدخول",
+      "close": "تسجيل الخروج"
+    },
+    "messages": {
+      "error": {
+        "authentication": "<strong>فشل تسجيل الدخول!</strong> يرجى التحقق من بيانات الاعتماد الخاصة بك وحاول مرة أخرى.",
+        "autheticationEspace": "<strong> فشل الدخول!! </strong> يرجى تسجيل الدخول  من الفضاء الخاص"
+      }
+    },
+    "password": {
+      "forgot": "هل نسيت كلمة المرور الخاصة بك؟"
+    }
+  }
+}

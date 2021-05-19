@@ -1,0 +1,31 @@
+{
+  "bassinManagement": {
+    "home": {
+      "title": "ادارة مستجمع المياه",
+      "liste": "قائمة مستجمعات المياه",
+      "nouveau": "اضافة مستجمع المياه",
+      "createLabel": "إنشاء مستجمع المياه",
+      "showLabel": "تفاصيل ",
+      "updateLabel": "تعديل مستجمع المياه",
+      "createOrEditLabel": "إنشاء أو تعديل مستجمع المياه",
+      "error": "يرجى ملء جميع المعلومات",
+      "errorvalid": "خانة إجبارية"
+    },
+
+    "delete": {
+      "question": "Etes-vous certain de vouloir supprimer Le bessin  {{ login }} ?"
+    },
+    "detail": {
+      "title": "ادارة مستجمعات المياه"
+    },
+    "libelleFr": "اسم مستجمع المياه(fr)",
+    "libelleAr": "اسم مستجمع المياه",
+    "description": "الوصف",
+    "resultselect": "نتيجة الاختيار",
+    "resetselect": "إعادة الاختيار",
+    "selectionner": "الاختيار :",
+    "zone": "المنطقة الهيدرولوجية",
+    "options": "خيارات",
+    "rechercher": "بحث"
+  }
+}

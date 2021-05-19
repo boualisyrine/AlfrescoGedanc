@@ -1,0 +1,55 @@
+{
+  "puitManagement": {
+    "home": {
+      "title": "ادارة الابيار",
+      "liste": "قائمة الابار",
+      "nouveau": "اضافة بئر جديد",
+      "createLabel": "إنشاء بئر جديدة",
+      "showLabel": "تفاصيل ",
+      "updateLabel": "تعديل بئر",
+      "createOrEditLabel": "إنشاء أو تعديل بئر",
+      "error": "يرجى ملء جميع المعلومات",
+      "errorvalid": "خانة إجبارية",
+      "msgCreation": "إضافة بئر خاص جديد بنجاح",
+      "msgValidation": "التحقق"
+    },
+    "created": "Le puits {{ param }} a été créé.",
+    "updated": "Le puits  {{ param }} a été mis à jour.",
+    "deleted": "Le puits  {{ param }} a été supprimé.",
+    "delete": {
+      "question": "Etes-vous certain de vouloir supprimer Le puits  {{ login }} ?"
+    },
+    "detail": {
+      "title": "ادارة الابار"
+    },
+    "libelle": "الرمز",
+    "numIrh": "عدد الجرد",
+    "libFr": "اسم البئر",
+    "libAr": "اسم البئر",
+    "profondeur": "العمق",
+    "description": "الوصف",
+    "anneeCreation": " تاريخ الانشاء",
+    "dateDebut": "تاريخ البداية",
+    "dateFin": "تاريخ الانتهاء",
+    "debit": "التدفق",
+    "residuSec": "الملوحة",
+    "date": "التاريخ",
+    "sousBassin": "الحوض",
+    "options": "الخيارات",
+    "nom": "اسم البئر",
+    "numero autorisation": "رقم التفويض",
+    "localite": "المنطقة",
+    "delegation": "المعتمدية",
+    "gouvernorat": "الولاية",
+    "nappe": "منسوب المياه",
+    "systemes aquiferes": "شبكات طبقات المياه",
+    "zone hydrologique": "المنطقة الهيدرولوجية",
+    "libelleFr": "اسم البئر",
+    "libelleAr": "اسم البئر",
+    "validation": "الرجاء ادخال",
+    "resultselect": "نتيجة الاختيار",
+    "resetselect": "إعادة الاختيار",
+    "selectionner": "الاختيار :",
+    "options": "خيارات"
+  }
+}
