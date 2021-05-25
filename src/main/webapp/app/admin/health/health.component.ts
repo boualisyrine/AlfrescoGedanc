@@ -19,7 +19,7 @@ export class JhiHealthCheckComponent implements OnInit {
   ngOnInit() {
     console.log('**************************************************************************');
     this.refresh();
-    this.alfrescoService.fetch().subscribe(
+    this.alfrescoService.fetch2().subscribe(
       res => {
         console.log('*******************************************+++++++++++++++++*******************************');
         console.log(res);

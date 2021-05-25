@@ -2,6 +2,7 @@ package bns.tn.alfresco.config;
 
 
 import bns.tn.alfresco.domain.OutPutGed;
+import bns.tn.alfresco.model.Tree;
 import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
 import org.apache.chemistry.opencmis.client.util.FileUtils;
@@ -68,6 +69,29 @@ public class CmisUtilsGed {
         COOKIES = env.getProperty("ged.repository.cookies");
         FAC_CLASS = env.getProperty("ged.repository.fac_class");
 
+    }
+
+
+public    List<Tree> getChildrens(Folder home) {
+        List<Tree> childrens = new ArrayList<>();
+        for (Iterator<CmisObject> it = home.getChildren().iterator(); it.hasNext(); ) {
+            CmisObject o = it.next();
+
+
+            if (BaseTypeId.CMIS_FOLDER.equals(o.getBaseTypeId())) {
+                Tree child = new Tree();
+                child.setName( o.getName());
+
+                Folder folder = ((Folder) o);
+                child.setId(folder.getId());
+                child.setPath(folder.getPath());
+                child.setChildrens(getChildrens(folder));
+                childrens.add(child);
+            }
+
+
+        }
+        return  childrens;
     }
 
 

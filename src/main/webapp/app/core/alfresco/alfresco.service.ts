@@ -13,8 +13,11 @@ export class AlfrescoService {
     return this.http.get<any>(SERVER_API_URL + 'api/test');
   }
 
-  fetch2(paths): Observable<any> {
+  fetch2(): Observable<any> {
+    return this.http.get<any>(SERVER_API_URL + 'api/test');
+  }
 
-    return this.http.post<any>(SERVER_API_URL + 'api/getFolder', paths);
+  fetchTree(): Observable<any> {
+    return this.http.get<any>(SERVER_API_URL + 'api/folderTree');
   }
 }

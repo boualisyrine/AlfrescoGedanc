@@ -33,6 +33,6 @@
   "cli": {
     "packageManager": "npm",
     "analytics": false
-  },
-  "assets": ["src/favicon.ico", "src/assets", "src/_ui/custom/my-app/dist/assets"]
+  }
+  // "assets": ["src/favicon.ico", "src/assets", "src/_ui/custom/my-app/dist/assets"]
 }

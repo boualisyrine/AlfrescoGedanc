@@ -1,39 +1,23 @@
 package bns.tn.alfresco.web.rest;
 
 import bns.tn.alfresco.config.CmisUtilsGed;
-import bns.tn.alfresco.domain.Inputgetfile;
 import bns.tn.alfresco.domain.OutPutGed;
-import bns.tn.alfresco.model.Node;
-import bns.tn.alfresco.security.AuthoritiesConstants;
+import bns.tn.alfresco.model.Tree;
 import bns.tn.alfresco.web.rest.vm.Champs;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import org.apache.chemistry.opencmis.client.api.*;
-import org.apache.chemistry.opencmis.client.runtime.util.CollectionIterator;
-import org.apache.chemistry.opencmis.commons.data.ContentStream;
-import org.apache.chemistry.opencmis.commons.data.PropertyData;
-import org.apache.chemistry.opencmis.commons.enums.BaseTypeId;
-import org.apache.chemistry.opencmis.commons.enums.BindingType;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
-import org.apache.chemistry.opencmis.commons.SessionParameter;
 import org.apache.chemistry.opencmis.client.api.Session;
 //import javax.mail.Session;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.io.*;
 import java.text.MessageFormat;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.List;
 
@@ -140,14 +124,20 @@ public class AlfrescoRessource {
 
 
 
-    @PostMapping("/test")
-    public  Folder getFolder() {
+    @GetMapping("/folderTree")
+    public  Tree getFolder1() {
         CmisUtilsGed cmisUtils = new CmisUtilsGed();
         Folder entrepot = cmisUtils.connect();
-        String path = "DIGITAL_HOME";
+        Folder home = cmisUtils.getFolderByName(entrepot, "DIGITAL_HOME");
 
-        Folder home = cmisUtils.getFolderByName(entrepot, path);
-       return home;
+
+        bns.tn.alfresco.model.Tree tree = new Tree();
+        tree.setId(home.getId());
+        tree.setPath(home.getPath());
+        tree.setName("DIGITAL_HOME");
+
+        tree.setChildrens(cmisUtils.getChildrens(home));
+       return tree;
     }
 
     @GetMapping("/foldn2/{mot}")

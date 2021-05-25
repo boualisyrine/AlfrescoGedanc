@@ -77,6 +77,15 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
           canActivate: [UserRouteAccessService],
           loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule)
         },
+
+        {
+          path: 'document',
+          data: {
+            authorities: ['ROLE_ADMIN', 'ROLE_USER']
+          },
+          canActivate: [UserRouteAccessService],
+          loadChildren: () => import('./document/document.module').then(m => m.DocumentModule)
+        },
         {
           path: 'account',
           loadChildren: () => import('./account/account.module').then(m => m.AlfrescoGedAccountModule)
