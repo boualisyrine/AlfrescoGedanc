@@ -124,7 +124,7 @@ public class AlfrescoRessource {
 
 
 
-    @GetMapping("/folderTree")
+   /* @GetMapping("/folderTree")
     public  Tree getFolder1() {
         CmisUtilsGed cmisUtils = new CmisUtilsGed();
         Folder entrepot = cmisUtils.connect();
@@ -138,7 +138,7 @@ public class AlfrescoRessource {
 
         tree.setChildrens(cmisUtils.getChildrens(home));
        return tree;
-    }
+    }*/
 
     @GetMapping("/foldn2/{mot}")
     public List<String> searchFile(@PathVariable(name = "mot") String mot) {

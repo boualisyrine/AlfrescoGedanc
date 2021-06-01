@@ -2,6 +2,8 @@ package bns.tn.alfresco.config;
 
 
 import bns.tn.alfresco.domain.OutPutGed;
+import bns.tn.alfresco.model.FolderManager;
+import bns.tn.alfresco.model.FolderResponse;
 import bns.tn.alfresco.model.Tree;
 import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
@@ -51,7 +53,6 @@ public class CmisUtilsGed {
     private static String ALFRSCO_HOME_FOLDER;
 
 
-
     private static String AUTH;
     private static String COOKIES;
     private static String FAC_CLASS;
@@ -64,37 +65,79 @@ public class CmisUtilsGed {
         ALFRSCO_USER = env.getProperty("ged.repository.username");
         ALFRSCO_PDF_URL = env.getProperty("ged.repository.urlpdf");
         ALFRSCO_PASSWORD = env.getProperty("ged.repository.pwd");
-        ALFRSCO_HOME_FOLDER =env.getProperty("ged.repository.home_folder");
+        ALFRSCO_HOME_FOLDER = env.getProperty("ged.repository.home_folder");
         AUTH = env.getProperty("ged.repository.auth");
         COOKIES = env.getProperty("ged.repository.cookies");
         FAC_CLASS = env.getProperty("ged.repository.fac_class");
 
     }
 
+    public FolderResponse getAllFolder(String path) {
 
-public    List<Tree> getChildrens(Folder home) {
-        List<Tree> childrens = new ArrayList<>();
+            path = "DIGITAL_HOME" + path;
+
+        FolderResponse folderResponse = new FolderResponse();
+        Folder entrepot = connect();
+        Folder home = getFolderByName(entrepot, path);
+        FolderManager folderManager = new FolderManager();
+        folderManager.setName(home.getName());
+        folderManager.setFilterPath("\\"+home.getName() +"\\");
+        folderManager.setIsFile(false);
+        if (home.getChildren().iterator().hasNext()) {
+            folderManager.setHasChild(true);
+        }
+        folderResponse.setFolder(folderManager);
+
+        folderResponse.setFiles(getChildrens(home));
+        return  folderResponse;
+    }
+
+    public List<FolderManager> getChildrens(Folder home) {
+
+        List<FolderManager> childrens = new ArrayList<>();
         for (Iterator<CmisObject> it = home.getChildren().iterator(); it.hasNext(); ) {
             CmisObject o = it.next();
 
 
             if (BaseTypeId.CMIS_FOLDER.equals(o.getBaseTypeId())) {
-                Tree child = new Tree();
-                child.setName( o.getName());
+                FolderManager child = new FolderManager();
+                child.setName(o.getName());
 
                 Folder folder = ((Folder) o);
-                child.setId(folder.getId());
-                child.setPath(folder.getPath());
-                child.setChildrens(getChildrens(folder));
+              //  child.setId(folder.getId());
+                if (folder.getChildren().iterator().hasNext()) {
+                    child.setHasChild(true);
+                }
+                child.setIsFile(false);
+
+                child.setFilterPath( "\\"+folder.getName() +"\\");
+
                 childrens.add(child);
             }
 
+            if (BaseTypeId.CMIS_DOCUMENT.equals(o.getBaseTypeId())) {
+                FolderManager child = new FolderManager();
+                child.setName(o.getName());
 
+                Document doc = (Document) o;
+                //  child.setId(folder.getId());
+
+                child.setHasChild(false);
+                child.setIsFile(true);
+                child.setFilterPath( "\\"+doc.getName() +"\\");
+                child.setType(getExtension(doc.getName()).orElse("txt"));
+                childrens.add(child);
+
+            }
         }
-        return  childrens;
+        return childrens;
     }
 
-
+    public Optional<String> getExtension(String filename) {
+        return Optional.ofNullable(filename)
+            .filter(f -> f.contains("."))
+            .map(f -> f.substring(filename.lastIndexOf(".") ));
+    }
     /**
      * Connect to alfresco repository
      *
@@ -118,7 +161,6 @@ public    List<Tree> getChildrens(Folder home) {
     }
 
     public Folder connect() {
-
 
 
         try {
@@ -242,11 +284,12 @@ public    List<Tree> getChildrens(Folder home) {
         }
 
     }
+
     public OutPutGed getDocumentByPaths(String path) {
         try {
 
             Document doc = (Document) session.getObjectByPath(path);
-            log.info("+++++++ "+doc);
+            log.info("+++++++ " + doc);
             String ch = doc.getId().substring(0, doc.getId().indexOf(";"));
             String[] t = ch.split("/");
             ch = t[t.length - 1];
@@ -374,7 +417,6 @@ public    List<Tree> getChildrens(Folder home) {
     }
 
 
-
     /**
      * Clean up test folder before executing test
      *
@@ -393,7 +435,7 @@ public    List<Tree> getChildrens(Folder home) {
     }
 
     /**
-     * Get Folder By Name
+     * Get FolderManager By Name
      *
      * @param target
      */
@@ -409,6 +451,7 @@ public    List<Tree> getChildrens(Folder home) {
 
         return foundFolder;
     }
+
     public OutPutGed getFileByName(Folder target, String fileName) {
         OutPutGed foundFile;
         try {
@@ -424,7 +467,7 @@ public    List<Tree> getChildrens(Folder home) {
     /**
      * @param target
      */
-    public  List<String> listFolder(int depth, Folder target) {
+    public List<String> listFolder(int depth, Folder target) {
         List<String> liste = new ArrayList<>();
         String indent = StringUtils.repeat("\t", depth);
         for (Iterator<CmisObject> it = target.getChildren().iterator(); it.hasNext(); ) {
@@ -435,24 +478,23 @@ public    List<Tree> getChildrens(Folder home) {
 
             } else if (BaseTypeId.CMIS_FOLDER.equals(o.getBaseTypeId())) {
 
-               // log.info(indent + "[Folder] " + o.getName());
+                // log.info(indent + "[FolderManager] " + o.getName());
                 listFolder(++depth, (Folder) o);
-                liste.add(o.getName()) ;
+                liste.add(o.getName());
             }
         }
         return liste;
     }
 
 
-
-    public  List<String> listFolder( Folder target) {
+    public List<String> listFolder(Folder target) {
         List<String> liste = new ArrayList<>();
 
         for (Iterator<CmisObject> it = target.getChildren().iterator(); it.hasNext(); ) {
             CmisObject o = it.next();
-           if (BaseTypeId.CMIS_FOLDER.equals(o.getBaseTypeId())) {
+            if (BaseTypeId.CMIS_FOLDER.equals(o.getBaseTypeId())) {
 
-                liste.add(o.getName()) ;
+                liste.add(o.getName());
             }
         }
         return liste;
@@ -475,7 +517,7 @@ public    List<Tree> getChildrens(Folder home) {
         }
     }
 
-    public  boolean deleteDocumentByPath( String path) {
+    public boolean deleteDocumentByPath(String path) {
         try {
             CmisObject object = session.getObjectByPath(path);
             Document delDoc = (Document) object;
@@ -525,10 +567,10 @@ public    List<Tree> getChildrens(Folder home) {
 
     }
 
-    public  void gettingFolders() {
+    public void gettingFolders() {
 
         Folder root = session.getRootFolder();
-        log.info("root "+ root.getName());
+        log.info("root " + root.getName());
         ItemIterable<CmisObject> children = root.getChildren();
 
         for (CmisObject o : children) {
@@ -571,25 +613,25 @@ public    List<Tree> getChildrens(Folder home) {
     }
 
 
-
-
     public String getPathFile(Folder target, String delDocName) {
-            CmisObject object = session.getObjectByPath(target.getPath() + delDocName);
-            String path=target.getPath() + delDocName;
+        CmisObject object = session.getObjectByPath(target.getPath() + delDocName);
+        String path = target.getPath() + delDocName;
         log.info("path of file" + path);
         return path;
 
     }
-public void test(String test) {
-    OperationContext operationContext = session.createOperationContext(null,
-        true, true, false, IncludeRelationships.BOTH, null, false, null, true, 100);
-    //Build query statement
-    MessageFormat format = new MessageFormat("cmis:name LIKE ''%{0}%'' OR CONTAINS(''{0}'')");
-    String statement = "";
-    if (StringUtils.isNotBlank(test)) {
-        statement = format.format(new String[]{test});
+
+    public void test(String test) {
+        OperationContext operationContext = session.createOperationContext(null,
+            true, true, false, IncludeRelationships.BOTH, null, false, null, true, 100);
+        //Build query statement
+        MessageFormat format = new MessageFormat("cmis:name LIKE ''%{0}%'' OR CONTAINS(''{0}'')");
+        String statement = "";
+        if (StringUtils.isNotBlank(test)) {
+            statement = format.format(new String[]{test});
+        }
     }
-}
+
     public Session getCmisSession() {
 
         SessionFactory sessionFactory = SessionFactoryImpl.newInstance();
@@ -645,9 +687,9 @@ public void test(String test) {
 ////        return ok(search.render(repositoryId, term, list));
 //    }
 
-    public  String readTheContentsOfTheDocument(Document document) {
+    public String readTheContentsOfTheDocument(Document document) {
         ContentStream contentStream = document.getContentStream();
-    String cc= "";
+        String cc = "";
         try (InputStream inputStream = contentStream.getStream();
              BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream)) {
 
@@ -657,8 +699,8 @@ public void test(String test) {
             while ((bytesRead = bufferedInputStream.read(buffer)) != -1) {
                 String str = new String(buffer, 0, bytesRead);
 //                log.info("buffer " +buffer );
-               // log.info("str " +str );
-                cc=cc+str;
+                // log.info("str " +str );
+                cc = cc + str;
 //                log.info("cc " +cc );
 
             }
@@ -671,4 +713,4 @@ public void test(String test) {
     }
 
 
-    }
+}

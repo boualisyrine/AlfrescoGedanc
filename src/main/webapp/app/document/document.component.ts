@@ -1,80 +1,59 @@
-import { Component, OnInit } from '@angular/core';
-import { TreeviewItem } from 'ngx-treeview';
-import { AlfrescoService } from 'app/core/alfresco/alfresco.service';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { SERVER_API_URL } from 'app/app.constants';
+import { ContextMenuService, DetailsViewService, NavigationPaneService, ToolbarService } from '@syncfusion/ej2-angular-filemanager';
+
+/*
+import {SERVER_API_URL} from "app/app.constants";
+*/
 
 @Component({
   selector: 'jhi-document',
   templateUrl: './document.component.html',
-  styleUrls: ['./document.component.scss']
+  styleUrls: ['./document.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  providers: [NavigationPaneService, ToolbarService, DetailsViewService, ContextMenuService]
 })
 export class DocumentComponent implements OnInit {
-  config = {
-    hasAllCheckBox: false,
-    hasFilter: true,
-    hasCollapseExpand: false,
+  public ajaxSettings: object;
+  public view: string;
+  public hostUrl = SERVER_API_URL;
 
-    decoupleChildFromParent: false,
-    maxHeight: 500
-  };
-  items: TreeviewItem[] = [];
-  constructor(private alfrescoService: AlfrescoService) {}
-
-  ngOnInit() {
-    this.alfrescoService.fetchTree().subscribe(
-      data => {
-        this.items.push(new TreeviewItem(data));
-      },
-      ex => console.log(ex)
-    );
-
-    const item = new TreeviewItem(
+  public detailsViewSettings = {
+    Columns: [
       {
-        text: 'IT',
-        value: 9,
-
-        children: [
-          {
-            text: 'Programming',
-            value: 91,
-
-            children: [
-              {
-                text: 'Frontend',
-                value: 911,
-
-                children: [
-                  { text: 'Angular 1', value: 9111 },
-                  { text: 'Angular 2', value: 9112 },
-                  { text: 'ReactJS', value: 9113 }
-                ]
-              },
-              {
-                text: 'Backend',
-                value: 912,
-                children: [
-                  { text: 'C#', value: 9121 },
-                  { text: 'Java', value: 9122 },
-                  { text: 'Python', value: 9123 }
-                ]
-              }
-            ]
-          },
-          {
-            text: 'Networking',
-            value: 92,
-            children: [
-              { text: 'Internet', value: 921 },
-              { text: 'Security', value: 922 }
-            ]
-          }
-        ]
+        field: 'name',
+        headerText: 'Nom',
+        minWidth: 120,
+        width: 'auto',
+        customAttributes: { class: 'e-fe-grid-name' },
+        template: '${name}'
       },
-      false
-    );
-    // this.items.push(item);
-  }
+      { field: 'size', headerText: 'Taille', minWidth: 50, width: '110', template: '${size}' },
 
-  onSelectedChange(event) {
-    console.log(event);
+      {
+        field: 'dateCreated',
+        headerText: 'Date création',
+        minWidth: 50,
+        width: '190'
+      },
+      {
+        field: 'dateModified',
+        headerText: 'Date de modification',
+        minWidth: 50,
+        width: '190'
+      }
+    ]
+  };
+
+  constructor() {}
+
+  public ngOnInit(): void {
+    this.ajaxSettings = {
+      url: this.hostUrl + 'fileManager'
+      /* getImageUrl: this.hostUrl + 'api/FileManager/GetImage',
+       uploadUrl: this.hostUrl + 'api/FileManager/Upload',
+       downloadUrl: this.hostUrl + 'api/FileManager/Download'*/
+    };
+    this.view = 'Details';
   }
 }

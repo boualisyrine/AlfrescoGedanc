@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { DocumentRoutingModule } from './document-routing.module';
 import { DocumentComponent } from './document.component';
-import { TreeviewModule } from 'ngx-treeview';
+import { FileManagerModule } from '@syncfusion/ej2-angular-filemanager';
 
 @NgModule({
   declarations: [DocumentComponent],
-  imports: [CommonModule, DocumentRoutingModule, TreeviewModule.forRoot()]
+  imports: [CommonModule, DocumentRoutingModule, FileManagerModule]
 })
 export class DocumentModule {}
