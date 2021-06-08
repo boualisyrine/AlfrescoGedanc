@@ -101,15 +101,17 @@ public class CmisUtilsGed {
 
             if (BaseTypeId.CMIS_FOLDER.equals(o.getBaseTypeId())) {
                 FolderManager child = new FolderManager();
-                child.setName(o.getName());
+
 
                 Folder folder = ((Folder) o);
               //  child.setId(folder.getId());
                 if (folder.getChildren().iterator().hasNext()) {
                     child.setHasChild(true);
                 }
+                child.setName(folder.getName());
                 child.setIsFile(false);
-
+                child.setDateCreated(folder.getCreationDate().getTime());
+                child.setDateModified(folder.getLastModificationDate().getTime());
                 child.setFilterPath( "\\"+folder.getName() +"\\");
 
                 childrens.add(child);
@@ -117,13 +119,15 @@ public class CmisUtilsGed {
 
             if (BaseTypeId.CMIS_DOCUMENT.equals(o.getBaseTypeId())) {
                 FolderManager child = new FolderManager();
-                child.setName(o.getName());
+
 
                 Document doc = (Document) o;
+                child.setName(doc.getName());
                 //  child.setId(folder.getId());
-
                 child.setHasChild(false);
                 child.setIsFile(true);
+                child.setDateCreated(doc.getCreationDate().getTime());
+                child.setDateModified(doc.getLastModificationDate().getTime());
                 child.setFilterPath( "\\"+doc.getName() +"\\");
                 child.setType(getExtension(doc.getName()).orElse("txt"));
                 childrens.add(child);
@@ -132,6 +136,61 @@ public class CmisUtilsGed {
         }
         return childrens;
     }
+
+    public FolderResponse createFolder(String path, String name) {
+
+        Folder entrepot = connect();
+        Folder home = getFolderByName(entrepot,"DIGITAL_HOME" + path);
+        Folder newFolder = getFolderByName(home, name);
+        if (newFolder == null) {
+            Map<String, String> props = new HashMap<String, String>();
+            props.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
+            props.put(PropertyIds.NAME, name);
+            home.createFolder(props);
+        }
+        return getAllFolder(path);
+    }
+
+    public FolderResponse renameFileOrFolder(String path, String name, String newName) {
+
+        Folder entrepot = connect();
+        Folder home = getFolderByName(entrepot,"DIGITAL_HOME" + path);
+        Folder newFolder = getFolderByName(home, "/"+name);
+
+        if (newFolder != null) {
+            Map<String, String> props = new HashMap<String, String>();
+            props.put(PropertyIds.NAME, newName);
+            newFolder.updateProperties(props);
+        } else {
+            Document document = getDocumentByPath("/DIGITAL_HOME" + path  + name);
+            Map<String, String> props = new HashMap<String, String>();
+            props.put(PropertyIds.NAME, newName);
+            document.updateProperties(props);
+        }
+        return getAllFolder(path);
+    }
+
+
+    public FolderResponse deleteFolderOrFile(String path, List<String> names) {
+
+        Folder entrepot = connect();
+        Folder home = getFolderByName(entrepot, "DIGITAL_HOME" + path);
+        for(String name: names) {
+
+            Folder newFolder = getFolderByName(home, "/"+name);
+            System.out.println(newFolder +"*****************************");
+            if (newFolder != null) {
+
+                newFolder.deleteTree(true, UnfileObject.DELETE, true);
+            } else {
+                Document document = getDocumentByPath("/DIGITAL_HOME" + path  + name);
+                document.delete(true);
+
+            }
+        }
+        return getAllFolder(path);
+    }
+
 
     public Optional<String> getExtension(String filename) {
         return Optional.ofNullable(filename)
@@ -144,7 +203,7 @@ public class CmisUtilsGed {
      * @return root folder object
      */
 
-
+/////////////////////////////////////////////////////////////////********************************************//////////////
     public String getTicket() {
 
         RestTemplate restTemplate = new RestTemplate();

@@ -1,5 +1,7 @@
 package bns.tn.alfresco.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 
@@ -8,7 +10,9 @@ public class FolderManager {
     private String id;
 	private String name;
 	private int size;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
 	private Date dateModified;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
 	private Date dateCreated;
 	private boolean hasChild;
 	private Boolean isFile;
