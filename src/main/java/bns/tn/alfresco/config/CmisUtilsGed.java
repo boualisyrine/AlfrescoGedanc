@@ -2,6 +2,7 @@ package bns.tn.alfresco.config;
 
 
 import bns.tn.alfresco.domain.OutPutGed;
+import bns.tn.alfresco.model.Details;
 import bns.tn.alfresco.model.FolderManager;
 import bns.tn.alfresco.model.FolderResponse;
 import bns.tn.alfresco.model.Tree;
@@ -29,6 +30,7 @@ import javax.xml.transform.TransformerException;
 import java.io.*;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Configuration
 @Component
@@ -74,14 +76,14 @@ public class CmisUtilsGed {
 
     public FolderResponse getAllFolder(String path) {
 
-            path = "DIGITAL_HOME" + path;
+        path = "DIGITAL_HOME" + path;
 
         FolderResponse folderResponse = new FolderResponse();
         Folder entrepot = connect();
         Folder home = getFolderByName(entrepot, path);
         FolderManager folderManager = new FolderManager();
         folderManager.setName(home.getName());
-        folderManager.setFilterPath("\\"+home.getName() +"\\");
+        folderManager.setFilterPath("\\" + home.getName() + "\\");
         folderManager.setIsFile(false);
         if (home.getChildren().iterator().hasNext()) {
             folderManager.setHasChild(true);
@@ -89,7 +91,7 @@ public class CmisUtilsGed {
         folderResponse.setFolder(folderManager);
 
         folderResponse.setFiles(getChildrens(home));
-        return  folderResponse;
+        return folderResponse;
     }
 
     public List<FolderManager> getChildrens(Folder home) {
@@ -104,7 +106,7 @@ public class CmisUtilsGed {
 
 
                 Folder folder = ((Folder) o);
-              //  child.setId(folder.getId());
+                //  child.setId(folder.getId());
                 if (folder.getChildren().iterator().hasNext()) {
                     child.setHasChild(true);
                 }
@@ -112,7 +114,7 @@ public class CmisUtilsGed {
                 child.setIsFile(false);
                 child.setDateCreated(folder.getCreationDate().getTime());
                 child.setDateModified(folder.getLastModificationDate().getTime());
-                child.setFilterPath( "\\"+folder.getName() +"\\");
+                child.setFilterPath("\\" + folder.getName() + "\\");
 
                 childrens.add(child);
             }
@@ -128,7 +130,7 @@ public class CmisUtilsGed {
                 child.setIsFile(true);
                 child.setDateCreated(doc.getCreationDate().getTime());
                 child.setDateModified(doc.getLastModificationDate().getTime());
-                child.setFilterPath( "\\"+doc.getName() +"\\");
+                child.setFilterPath("\\" + doc.getName() + "\\");
                 child.setType(getExtension(doc.getName()).orElse("txt"));
                 childrens.add(child);
 
@@ -140,7 +142,7 @@ public class CmisUtilsGed {
     public FolderResponse createFolder(String path, String name) {
 
         Folder entrepot = connect();
-        Folder home = getFolderByName(entrepot,"DIGITAL_HOME" + path);
+        Folder home = getFolderByName(entrepot, "DIGITAL_HOME" + path);
         Folder newFolder = getFolderByName(home, name);
         if (newFolder == null) {
             Map<String, String> props = new HashMap<String, String>();
@@ -154,15 +156,15 @@ public class CmisUtilsGed {
     public FolderResponse renameFileOrFolder(String path, String name, String newName) {
 
         Folder entrepot = connect();
-        Folder home = getFolderByName(entrepot,"DIGITAL_HOME" + path);
-        Folder newFolder = getFolderByName(home, "/"+name);
+        Folder home = getFolderByName(entrepot, "DIGITAL_HOME" + path);
+        Folder newFolder = getFolderByName(home, "/" + name);
 
         if (newFolder != null) {
             Map<String, String> props = new HashMap<String, String>();
             props.put(PropertyIds.NAME, newName);
             newFolder.updateProperties(props);
         } else {
-            Document document = getDocumentByPath("/DIGITAL_HOME" + path  + name);
+            Document document = getDocumentByPath("/DIGITAL_HOME" + path + name);
             Map<String, String> props = new HashMap<String, String>();
             props.put(PropertyIds.NAME, newName);
             document.updateProperties(props);
@@ -171,19 +173,32 @@ public class CmisUtilsGed {
     }
 
 
+    public FolderResponse search(String path, String searchKey) {
+
+
+        FolderResponse folderResponse = getAllFolder(path);
+        System.out.println(searchKey);
+        String valueKey = searchKey.replace("*", "");
+        System.out.println(valueKey);
+        List<FolderManager> filtredList = folderResponse.getFiles().stream().filter(f -> f.getName().contains(valueKey)).collect(Collectors.toList());
+        filtredList.forEach(f -> System.out.println(f.getName()));
+        folderResponse.setFiles(filtredList);
+        return folderResponse;
+    }
+
+
     public FolderResponse deleteFolderOrFile(String path, List<String> names) {
 
         Folder entrepot = connect();
         Folder home = getFolderByName(entrepot, "DIGITAL_HOME" + path);
-        for(String name: names) {
+        for (String name : names) {
 
-            Folder newFolder = getFolderByName(home, "/"+name);
-            System.out.println(newFolder +"*****************************");
+            Folder newFolder = getFolderByName(home, "/" + name);
             if (newFolder != null) {
 
                 newFolder.deleteTree(true, UnfileObject.DELETE, true);
             } else {
-                Document document = getDocumentByPath("/DIGITAL_HOME" + path  + name);
+                Document document = getDocumentByPath("/DIGITAL_HOME" + path + name);
                 document.delete(true);
 
             }
@@ -192,11 +207,59 @@ public class CmisUtilsGed {
     }
 
 
+    public FolderResponse detailFolderOrFile(String path, List<String> names) {
+
+        Details details = new Details();
+        if (names.size() > 1) {
+            details.setMultipleFiles(true);
+        }
+
+        Folder entrepot = connect();
+
+        Folder home = getFolderByName(entrepot, "DIGITAL_HOME" + path);
+        String nameFolder = "";
+        for (String name : names) {
+            nameFolder +=name +", ";
+            if(names.size()==1) {
+                details.setLocation("/DIGITAL_HOME"+ path +name);
+            }
+            Folder newFolder = getFolderByName(home, "/" + name);
+            if (newFolder != null) {
+                details.setCreated(newFolder.getCreationDate().getTime());
+                details.setModified(newFolder.getLastModificationDate().getTime());
+
+            } else {
+                Document document = getDocumentByPath("/DIGITAL_HOME" + path + name);
+                details.setCreated(document.getCreationDate().getTime());
+                details.setModified(document.getLastModificationDate().getTime());
+                if (names.size()==1) {
+                    details.setFile(true);
+                }
+
+            }
+        }
+        if(names.size()==0) {
+            details.setName(path.replace("/", ""));
+        } else {
+
+            details.setName(nameFolder.substring(0, nameFolder.length()-2));
+        }
+
+        if(names.size()!=1) {
+            details.setLocation("/DIGITAL_HOME"+ path );
+        }
+        FolderResponse folderResponse = new FolderResponse();
+        folderResponse.setDetails(details);
+        return folderResponse;
+    }
+
+
     public Optional<String> getExtension(String filename) {
         return Optional.ofNullable(filename)
             .filter(f -> f.contains("."))
-            .map(f -> f.substring(filename.lastIndexOf(".") ));
+            .map(f -> f.substring(filename.lastIndexOf(".")));
     }
+
     /**
      * Connect to alfresco repository
      *
@@ -225,6 +288,7 @@ public class CmisUtilsGed {
         try {
 
             SessionFactory sessionFactory = SessionFactoryImpl.newInstance();
+
             Map<String, String> parameters = new HashMap<String, String>();
 
             log.debug("--------------setting user Session Params--------------");

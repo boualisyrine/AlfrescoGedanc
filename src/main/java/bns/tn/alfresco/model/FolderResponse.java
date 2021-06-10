@@ -10,6 +10,8 @@ public class FolderResponse {
 	private FolderManager folder;
 	@JsonProperty(value = "files")
 	private List<FolderManager> files;
+    @JsonProperty(value = "details")
+	private Details details;
 
 
     public FolderManager getFolder() {
@@ -26,5 +28,13 @@ public class FolderResponse {
 
     public void setFiles(List<FolderManager> files) {
         this.files = files;
+    }
+
+    public Details getDetails() {
+        return details;
+    }
+
+    public void setDetails(Details details) {
+        this.details = details;
     }
 }

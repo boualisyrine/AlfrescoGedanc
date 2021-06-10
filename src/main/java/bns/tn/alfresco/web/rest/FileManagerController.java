@@ -34,8 +34,9 @@ public class FileManagerController {
                 folderRequest.getNewName());
         } else if (folderRequest.getAction().equals("search")) {
 
-
+            return cmisUtilsGed.search(folderRequest.getPath(), folderRequest.getSearchString());
         } else if (folderRequest.getAction().equals("details")) {
+            return cmisUtilsGed.detailFolderOrFile(folderRequest.getPath(), folderRequest.getNames());
         } else if (folderRequest.getAction().equals("upload")) {
 
         } else if (folderRequest.getAction().equals("download")) {

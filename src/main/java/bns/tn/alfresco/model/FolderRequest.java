@@ -12,6 +12,7 @@ public class FolderRequest {
 	private List<FolderManager> data;
 	private String name;
 	private String newName;
+	private String searchString;
 	private List<String> names;
 
     public String getAction() {
@@ -68,5 +69,13 @@ public class FolderRequest {
 
     public void setNewName(String newName) {
         this.newName = newName;
+    }
+
+    public String getSearchString() {
+        return searchString;
+    }
+
+    public void setSearchString(String searchString) {
+        this.searchString = searchString;
     }
 }
