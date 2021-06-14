@@ -1,14 +1,19 @@
 package bns.tn.alfresco.web.rest;
 
 import bns.tn.alfresco.config.CmisUtilsGed;
-import bns.tn.alfresco.model.FolderManager;
 import bns.tn.alfresco.model.FolderRequest;
 import bns.tn.alfresco.model.FolderResponse;
+import bns.tn.alfresco.model.ResourceResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -45,5 +50,17 @@ public class FileManagerController {
 
 
         return null;
+    }
+
+    @PostMapping("/download")
+    public ResponseEntity<Resource> download(@RequestParam("downloadInput") String folderRequest) {
+
+
+        ResourceResponse resourceResponse = cmisUtilsGed.download(folderRequest);
+
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
+                resourceResponse.getAttachementName() + "\"").body(resourceResponse.getResource());
+
     }
 }

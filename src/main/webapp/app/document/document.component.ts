@@ -144,7 +144,8 @@ export class DocumentComponent implements OnInit {
 
     this.locale = 'fr';
     this.ajaxSettings = {
-      url: this.hostUrl + 'fileManager'
+      url: this.hostUrl + 'fileManager',
+      downloadUrl: this.hostUrl + 'fileManager/download'
       /* getImageUrl: this.hostUrl + 'api/FileManager/GetImage',
        uploadUrl: this.hostUrl + 'api/FileManager/Upload',
        downloadUrl: this.hostUrl + 'api/FileManager/Download'*/

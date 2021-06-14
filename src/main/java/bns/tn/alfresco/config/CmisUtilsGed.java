@@ -1,11 +1,13 @@
 package bns.tn.alfresco.config;
 
-
-import bns.tn.alfresco.domain.OutPutGed;
-import bns.tn.alfresco.model.Details;
-import bns.tn.alfresco.model.FolderManager;
-import bns.tn.alfresco.model.FolderResponse;
+import bns.tn.alfresco.model.*;
 import bns.tn.alfresco.model.Tree;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import bns.tn.alfresco.domain.OutPutGed;
+import jdk.internal.org.objectweb.asm.ClassWriter;
 import org.apache.chemistry.opencmis.client.api.*;
 import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
 import org.apache.chemistry.opencmis.client.util.FileUtils;
@@ -15,12 +17,14 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.enums.*;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisNameConstraintViolationException;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,9 +32,14 @@ import javax.annotation.PostConstruct;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @Configuration
 @Component
@@ -40,6 +49,7 @@ public class CmisUtilsGed {
      * The Constant LOGGER.
      */
     private static final Logger log = LoggerFactory.getLogger(CmisUtilsGed.class);
+
 
     @Autowired
     private Environment env;
@@ -219,9 +229,9 @@ public class CmisUtilsGed {
         Folder home = getFolderByName(entrepot, "DIGITAL_HOME" + path);
         String nameFolder = "";
         for (String name : names) {
-            nameFolder +=name +", ";
-            if(names.size()==1) {
-                details.setLocation("/DIGITAL_HOME"+ path +name);
+            nameFolder += name + ", ";
+            if (names.size() == 1) {
+                details.setLocation("/DIGITAL_HOME" + path + name);
             }
             Folder newFolder = getFolderByName(home, "/" + name);
             if (newFolder != null) {
@@ -232,21 +242,21 @@ public class CmisUtilsGed {
                 Document document = getDocumentByPath("/DIGITAL_HOME" + path + name);
                 details.setCreated(document.getCreationDate().getTime());
                 details.setModified(document.getLastModificationDate().getTime());
-                if (names.size()==1) {
+                if (names.size() == 1) {
                     details.setFile(true);
                 }
 
             }
         }
-        if(names.size()==0) {
+        if (names.size() == 0) {
             details.setName(path.replace("/", ""));
         } else {
 
-            details.setName(nameFolder.substring(0, nameFolder.length()-2));
+            details.setName(nameFolder.substring(0, nameFolder.length() - 2));
         }
 
-        if(names.size()!=1) {
-            details.setLocation("/DIGITAL_HOME"+ path );
+        if (names.size() != 1) {
+            details.setLocation("/DIGITAL_HOME" + path);
         }
         FolderResponse folderResponse = new FolderResponse();
         folderResponse.setDetails(details);
@@ -258,6 +268,82 @@ public class CmisUtilsGed {
         return Optional.ofNullable(filename)
             .filter(f -> f.contains("."))
             .map(f -> f.substring(filename.lastIndexOf(".")));
+    }
+
+    public ResourceResponse download(String folderRequest) {
+
+        ResourceResponse resourceResponse = new ResourceResponse();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            FolderRequest request =   mapper.readValue(folderRequest, FolderRequest.class);
+            Folder entrepot = connect();
+
+            Folder home = getFolderByName(entrepot, "DIGITAL_HOME" + request.getPath());
+
+            List<File> files = new ArrayList<>();
+
+            for (String name : request.getNames()) {
+                Resource resource = null;
+
+                Folder newFolder = getFolderByName(home, "/" + name);
+
+                if (newFolder != null) {
+
+                } else {
+                    Document document = getDocumentByPath("/DIGITAL_HOME" + request.getPath() + name);
+                    ContentStream contentStream = document.getContentStream(null);
+                /*    resource = new InputStreamResource(contentStream.getStream());*/
+
+
+                    File tempFile = File.createTempFile(document.getName(),
+                        getExtension(document.getName()).orElse(".txt"));
+                    Files.copy(contentStream.getStream(), Paths.get(tempFile.getPath()), StandardCopyOption.REPLACE_EXISTING);
+                    files.add(tempFile);
+                }
+
+            }
+            if(request.getNames().size()>1) {
+                resourceResponse.setAttachementName(home.getName() +".zip");
+
+               FileOutputStream fos = new FileOutputStream(resourceResponse.getAttachementName());
+
+                byte[] buffer = new byte[1024];
+                ZipOutputStream zos = new ZipOutputStream(fos);
+                for (File file : files) {
+
+                    FileInputStream fis = new FileInputStream(file);
+                    String [] splitted = file.getName().split("\\.");
+
+                    String fileName = splitted[0]+"."+ splitted[2];
+                    zos.putNextEntry(new ZipEntry(fileName));
+                    int length;
+                    while ((length = fis.read(buffer)) > 0) {
+                        zos.write(buffer, 0, length);
+                    }
+                    zos.closeEntry();
+
+                    // close the InputStream
+                    fis.close();
+                }
+                zos.close();
+
+
+                resourceResponse.setResource(new FileSystemResource(resourceResponse.getAttachementName()));
+
+            } else {
+                resourceResponse.setAttachementName(request.getNames().get(0));
+                resourceResponse.setResource(new FileSystemResource(files.get(0)));
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        return resourceResponse;
     }
 
     /**
